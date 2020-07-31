@@ -1,0 +1,22 @@
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    #- echo $CI_COMMIT_REF_NAME
+    - npm install
+    - node_modules/typescript/bin/tsc
+    # 复制代码到 /usr/local/webserver/nginx/html/game
+    - chmod 777 ./linuxci.sh
+    - ./linuxci.sh
+    - cd /home/creatorgame
+    - chmod 777 ./linuxcibuild.sh
+  only:
+    - master
+# deploy_staging:
+#   stage: deploy
+#   script:
+#     - echo "这里加脚本把bin里面的东西还有相关的东西拷贝到有需求的目录"
+#   only:
+#     - master
